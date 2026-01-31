@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nirmal Ghimire — A Journey Across Continents</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --nepal-color: #dc143c;
+            --japan-color: #bc002d;
+            --usa-color: #3c3b6e;
+            --bg: #0a0a0f;
+            --text: #e8e6e3;
+            --text-muted: #8a8a8a;
+            --card-bg: #141419;
+            --border: #2a2a35;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            padding: 2rem;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background:
+                radial-gradient(ellipse at 20% 50%, rgba(220, 20, 60, 0.08) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 50%, rgba(60, 59, 110, 0.08) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 0%, rgba(188, 0, 45, 0.06) 0%, transparent 40%);
+            pointer-events: none;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-subtitle {
+            font-family: 'Inter', sans-serif;
+            font-weight: 300;
+            font-size: 0.85rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.5rem, 6vw, 5rem);
+            font-weight: 700;
+            line-height: 1.15;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #ffffff 0%, #b0b0b0 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-description {
+            font-size: 1.15rem;
+            color: var(--text-muted);
+            max-width: 560px;
+            margin: 0 auto 3rem;
+            font-weight: 300;
+        }
+
+        .hero-flags {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 3rem;
+            font-size: 2.5rem;
+        }
+
+        .hero-flags .arrow {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+        }
+
+        .scroll-hint {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-muted);
+            font-size: 0.75rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            animation: float 2s ease-in-out infinite;
+        }
+
+        .scroll-hint .line {
+            width: 1px;
+            height: 40px;
+            background: linear-gradient(to bottom, var(--text-muted), transparent);
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(8px); }
+        }
+
+        /* Journey Bar */
+        .journey-bar-section {
+            padding: 4rem 2rem 6rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .section-label {
+            font-size: 0.75rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .journey-bar-container {
+            position: relative;
+        }
+
+        .journey-bar {
+            display: flex;
+            height: 56px;
+            border-radius: 12px;
+            overflow: hidden;
+            position: relative;
+            border: 1px solid var(--border);
+        }
+
+        .journey-segment {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            transition: opacity 0.3s;
+            cursor: default;
+        }
+
+        .journey-segment .segment-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            color: white;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+            white-space: nowrap;
+        }
+
+        .segment-nepal-1 {
+            background: linear-gradient(135deg, #dc143c, #a00e2c);
+            flex-basis: 58.3%;
+        }
+
+        .segment-japan {
+            background: linear-gradient(135deg, #bc002d, #8a0020);
+            flex-basis: 25%;
+        }
+
+        .segment-nepal-2 {
+            background: linear-gradient(135deg, #e8304a, #c01030);
+            flex-basis: 8.3%;
+        }
+
+        .segment-usa {
+            background: linear-gradient(135deg, #3c3b6e, #282860);
+            flex-basis: 8.3%;
+        }
+
+        .journey-years {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.75rem 0 0;
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            font-variant-numeric: tabular-nums;
+        }
+
+        .journey-legend {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            justify-content: center;
+            margin-top: 1.5rem;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .legend-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+
+        /* Timeline */
+        .timeline-section {
+            padding: 4rem 2rem 8rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .timeline {
+            position: relative;
+            padding: 2rem 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 28px;
+            top: 0;
+            bottom: 0;
+            width: 1px;
+            background: linear-gradient(to bottom, transparent, var(--border) 5%, var(--border) 95%, transparent);
+        }
+
+        .timeline-entry {
+            position: relative;
+            padding-left: 72px;
+            margin-bottom: 4rem;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeUp 0.6s ease forwards;
+        }
+
+        .timeline-entry:nth-child(1) { animation-delay: 0.1s; }
+        .timeline-entry:nth-child(2) { animation-delay: 0.25s; }
+        .timeline-entry:nth-child(3) { animation-delay: 0.4s; }
+        .timeline-entry:nth-child(4) { animation-delay: 0.55s; }
+
+        @keyframes fadeUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: 20px;
+            top: 4px;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            border: 2px solid;
+            background: var(--bg);
+            z-index: 1;
+        }
+
+        .timeline-entry .year-badge {
+            display: inline-block;
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            padding: 0.25rem 0.75rem;
+            border-radius: 100px;
+            margin-bottom: 0.75rem;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .timeline-entry h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .timeline-entry .location {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .timeline-entry .duration {
+            display: inline-block;
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 0.2rem 0.6rem;
+            margin-bottom: 1rem;
+        }
+
+        .timeline-entry p {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            line-height: 1.8;
+            max-width: 520px;
+        }
+
+        /* Nepal Entry */
+        .entry-nepal .timeline-dot { border-color: #dc143c; }
+        .entry-nepal .year-badge {
+            background: rgba(220, 20, 60, 0.1);
+            color: #f05572;
+            border: 1px solid rgba(220, 20, 60, 0.2);
+        }
+        .entry-nepal h3 { color: #f7c5ce; }
+
+        /* Japan Entry */
+        .entry-japan .timeline-dot { border-color: #ff6b81; }
+        .entry-japan .year-badge {
+            background: rgba(188, 0, 45, 0.1);
+            color: #ff8a9c;
+            border: 1px solid rgba(188, 0, 45, 0.2);
+        }
+        .entry-japan h3 { color: #ffd4db; }
+
+        /* Nepal Return */
+        .entry-nepal-return .timeline-dot { border-color: #dc143c; }
+        .entry-nepal-return .year-badge {
+            background: rgba(220, 20, 60, 0.1);
+            color: #f05572;
+            border: 1px solid rgba(220, 20, 60, 0.2);
+        }
+        .entry-nepal-return h3 { color: #f7c5ce; }
+
+        /* USA Entry */
+        .entry-usa .timeline-dot { border-color: #6c6bbf; }
+        .entry-usa .year-badge {
+            background: rgba(60, 59, 110, 0.15);
+            color: #9a99e0;
+            border: 1px solid rgba(60, 59, 110, 0.3);
+        }
+        .entry-usa h3 { color: #d0cfff; }
+
+        /* Stats Section */
+        .stats-section {
+            padding: 4rem 2rem 6rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .stat-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 2rem;
+            text-align: center;
+            transition: transform 0.3s, border-color 0.3s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(255,255,255,0.1);
+        }
+
+        .stat-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            letter-spacing: 0.05em;
+        }
+
+        .stat-card:nth-child(1) .stat-number { color: #f05572; }
+        .stat-card:nth-child(2) .stat-number { color: #ff8a9c; }
+        .stat-card:nth-child(3) .stat-number { color: #9a99e0; }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 3rem 2rem;
+            border-top: 1px solid var(--border);
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        footer .footer-flags {
+            font-size: 1.5rem;
+            margin-bottom: 0.75rem;
+            letter-spacing: 0.5rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .timeline::before {
+                left: 16px;
+            }
+
+            .timeline-entry {
+                padding-left: 48px;
+            }
+
+            .timeline-dot {
+                left: 9px;
+                width: 15px;
+                height: 15px;
+            }
+
+            .timeline-entry h3 {
+                font-size: 1.3rem;
+            }
+
+            .journey-bar {
+                height: 44px;
+            }
+
+            .journey-segment .segment-label {
+                font-size: 0.6rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-content">
+            <p class="hero-subtitle">A life across three countries</p>
+            <h1>Nirmal Ghimire</h1>
+            <p class="hero-description">
+                From the hills of Nepal, through the bustling streets of Japan,
+                and on to a new beginning in America &mdash; one journey, three chapters.
+            </p>
+            <div class="hero-flags">
+                <span title="Nepal">&#x1F1F3;&#x1F1F5;</span>
+                <span class="arrow">&rarr;</span>
+                <span title="Japan">&#x1F1EF;&#x1F1F5;</span>
+                <span class="arrow">&rarr;</span>
+                <span title="Nepal">&#x1F1F3;&#x1F1F5;</span>
+                <span class="arrow">&rarr;</span>
+                <span title="United States">&#x1F1FA;&#x1F1F8;</span>
+            </div>
+        </div>
+        <div class="scroll-hint">
+            <span>Scroll</span>
+            <div class="line"></div>
+        </div>
+    </section>
+
+    <!-- Life at a Glance Bar -->
+    <section class="journey-bar-section">
+        <p class="section-label">Life at a glance &mdash; 36 years</p>
+        <div class="journey-bar-container">
+            <div class="journey-bar">
+                <div class="journey-segment segment-nepal-1">
+                    <span class="segment-label">Nepal &middot; 21 yrs</span>
+                </div>
+                <div class="journey-segment segment-japan">
+                    <span class="segment-label">Japan &middot; 9.5 yrs</span>
+                </div>
+                <div class="journey-segment segment-nepal-2">
+                    <span class="segment-label">Nepal &middot; 3 yrs</span>
+                </div>
+                <div class="journey-segment segment-usa">
+                    <span class="segment-label">US &middot; 3 yrs</span>
+                </div>
+            </div>
+            <div class="journey-years">
+                <span>1990</span>
+                <span>2000</span>
+                <span>2011</span>
+                <span>2020</span>
+                <span>2023</span>
+                <span>Now</span>
+            </div>
+            <div class="journey-legend">
+                <div class="legend-item">
+                    <div class="legend-dot" style="background:#dc143c;"></div>
+                    Nepal
+                </div>
+                <div class="legend-item">
+                    <div class="legend-dot" style="background:#bc002d;"></div>
+                    Japan
+                </div>
+                <div class="legend-item">
+                    <div class="legend-dot" style="background:#3c3b6e;"></div>
+                    United States
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Timeline -->
+    <section class="timeline-section">
+        <p class="section-label">The Timeline</p>
+        <div class="timeline">
+
+            <!-- Nepal - Growing Up -->
+            <div class="timeline-entry entry-nepal">
+                <div class="timeline-dot"></div>
+                <span class="year-badge">1990 &mdash; 2011</span>
+                <h3>Growing Up in Nepal</h3>
+                <div class="location">
+                    <span>&#x1F1F3;&#x1F1F5;</span> Nepal
+                </div>
+                <div class="duration">21 years</div>
+                <p>
+                    Born in 1990, Nirmal grew up in Nepal &mdash; a land of towering
+                    Himalayan peaks and rich cultural heritage. These formative years
+                    shaped the foundation of who he would become, grounding him in
+                    Nepali traditions and values before setting out into the world.
+                </p>
+            </div>
+
+            <!-- Japan -->
+            <div class="timeline-entry entry-japan">
+                <div class="timeline-dot"></div>
+                <span class="year-badge">2011 &mdash; 2020</span>
+                <h3>A Chapter in Japan</h3>
+                <div class="location">
+                    <span>&#x1F1EF;&#x1F1F5;</span> Japan
+                </div>
+                <div class="duration">9.5 years</div>
+                <p>
+                    At 21, Nirmal made the leap to Japan, immersing himself in a
+                    culture defined by discipline, innovation, and beauty. Over
+                    nearly a decade, he built a life in the Land of the Rising Sun,
+                    gaining experiences and perspectives that would stay with him forever.
+                </p>
+            </div>
+
+            <!-- Back to Nepal -->
+            <div class="timeline-entry entry-nepal-return">
+                <div class="timeline-dot"></div>
+                <span class="year-badge">2020 &mdash; 2023</span>
+                <h3>Return to Roots</h3>
+                <div class="location">
+                    <span>&#x1F1F3;&#x1F1F5;</span> Nepal
+                </div>
+                <div class="duration">~3 years</div>
+                <p>
+                    After nearly a decade abroad, Nirmal returned home to Nepal.
+                    This period of reconnection with family and homeland set the
+                    stage for the next big chapter &mdash; an opportunity that would
+                    take him across the Pacific.
+                </p>
+            </div>
+
+            <!-- United States -->
+            <div class="timeline-entry entry-usa">
+                <div class="timeline-dot"></div>
+                <span class="year-badge">2023 &mdash; Present</span>
+                <h3>A New Beginning in America</h3>
+                <div class="location">
+                    <span>&#x1F1FA;&#x1F1F8;</span> Fremont, California
+                </div>
+                <div class="duration">~3 years &amp; counting</div>
+                <p>
+                    Selected through the U.S. Diversity Visa Lottery, Nirmal embarked
+                    on his latest journey &mdash; building a new life in Fremont, California.
+                    The Bay Area's vibrant Nepali community and boundless opportunities
+                    mark the beginning of an exciting American chapter.
+                </p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Stats -->
+    <section class="stats-section">
+        <p class="section-label">By the numbers</p>
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-number">3</div>
+                <div class="stat-label">Countries called home</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">2</div>
+                <div class="stat-label">Continents lived on</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">36</div>
+                <div class="stat-label">Years of stories</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-flags">&#x1F1F3;&#x1F1F5; &#x1F1EF;&#x1F1F5; &#x1F1FA;&#x1F1F8;</div>
+        <p>The journey of Nirmal Ghimire</p>
+    </footer>
+
+</body>
+</html>
